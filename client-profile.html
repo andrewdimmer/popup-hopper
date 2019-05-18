@@ -3,215 +3,50 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-      shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- Style -->
-    <link rel="stylesheet" type="text/css" href="template/style.css">
+    <link rel="stylesheet" href="styles/style.css"/>
 
-    <title>Résumé Buffet</title>
+    <title>Pop-up Hopper</title>
   </head>
   <body>
+    <div class="business-form">
+        <form>
+            <h3 class="form-feild form-heading">Personal Information</h3>
 
-    <div id="profileWrapper">
+            <input type="number" placeholder="Brith year" id="client-age" class="form-feild">
 
-      <div include-html="template/navbar.html"></div>
-      <div class="content" style="margin: 20px;">
-            <div id="messages"></div>
-            <h1 class="center">Profile</h1>
-            <div class="profile-line contentBackground addPadding noScroll">
-                <div class="floatLeft">
-                    <a id="editNameIcon">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <strong>Name: </strong>
-                    <span id="userName"></span>
-                </div><br />
-                <form id="editNameForm" style="display: none;">
-                    <input type="text" name="newName" id="newName" class="surroundSpace fullWidth textStyle" /> 
-                    <input type="button" onclick="updateName();" value="Update" class="btn btn-outline-info surroundSpace" />
-                    <input type="button" onclick="toggleEdit('Name');" value="Cancel" class="btn btn-outline-info surroundSpace" />
-                </form>
-            </div>
+            <label class="form-input-container form-text form-feild">
+                <input type="radio" name="gender" value="Male">
+                Male
+                <span class="radiobutton"></span>
+            </label>
 
-          <h2>Account Information</h2>
-          
-            <div class="profile-line contentBackground addPadding noScroll">
-                <div class="floatLeft">
-                    <a id="editAccountEmailIcon">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <strong>Account Email: </strong>
-                    <span id="userAccountEmail"></span>
-                </div><br />
-                <form id="editAccountEmailForm" style="display: none;">
-                    <input type="text" name="newAccountEmail" id="newAccountEmail" style="width: calc(100vw - 400px);" class="surroundSpace fullWidth textStyle" />
-                    <input type="button" onclick="updateAccountEmail();" value="Update" class="btn btn-outline-info surroundSpace seperateRight" /><input type="button" onclick="toggleEdit('AccountEmail');" value="Cancel" class="btn btn-outline-info surroundSpace" />
-                </form>
-            </div>
+            <label class="form-input-container form-text form-feild">
+                <input type="radio" name="gender" value="Female">
+                Female
+                <span class="radiobutton"></span>
+            </label>
+            
+            <label class="form-input-container form-text form-feild">
+                <input type="radio" name="gender" value="T">
+                Other
+                <span class="radiobutton"></span>
+            </label>
 
-            <div class="profile-line contentBackground addPadding noScroll">
-                <div class="floatLeft">
-                    <a id="editPasswordIcon">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <strong>Password: </strong>
-                    <span id="userPassword"></span>
-                </div><br />
-                <form id="editPasswordForm" style="display: none;">
-                    <input type="password" name="newPassword" id="newPassword" placeholder="New Password" class="surroundSpace fullWidth textStyle" />
-                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" class="surroundSpace fullWidth textStyle" />
-                    <input type="button" onclick="updatePassword();" value="Update" class="btn btn-outline-info surroundSpace" />
-                    <input type="button" onclick="toggleEdit('Password');" value="Cancel" class="btn btn-outline-info surroundSpace" />
-                </form>
-            </div>
+            <input type="text" class="form-feild" placeholder="URL of profile picture" id="client-profile-picture">
 
-            <div class="profile-line  contentBackground addPadding noScroll">
-                <div class="floatLeft">
-                    <a id="editImageIcon">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <strong>Profile Picture: </strong>
-                    <span id="userImage"></span>
-                </div><br />
-                <form id="editImageForm" style="display: none;">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <input type="file" name="newImage" id="newIamge" placeholder="New Profile Picture" class="surroundSpace fileUpload fullWidth" />
-                        </div>
-                        <div class="col-sm-auto">
-                            <input type="button" onclick="updateImage();" value="Update" class="btn btn-outline-info surroundSpace" />
-                            <input type="button" onclick="toggleEdit('Image');" value="Cancel" class="btn btn-outline-info surroundSpace" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-          
-          <h2>Resume Information</h2>
-          <h3>Basic Contact Information</h3>
-          
-          <h4>Email Addresses</h4>
-          <div id="listEmails"></div>
-          <div class="profile-line contentBackground addPadding noScroll">
-              <div class="floatLeft">
-                    <strong>Add Another Email Address: </strong>
-                </div><br />
-                <form id="AddEmailForm">
-                    <input type="text" name="newEmail" id="newEmail" style="width: calc(100vw - 400px);" class="surroundSpace fullWidth textStyle" /> <input type="button" onclick="addSingleLineItem('emails','email','Email');" value="Add" class="btn btn-outline-info surroundSpace seperateRight" />
-
-                </form>
-            </div>
-          
-          <h4>Phone Numbers</h4>
-          <div id="listPhones"></div>
-          <div class="profile-line contentBackground addPadding noScroll">
-              <div class="floatLeft">
-                    <strong>Add Another Phone: </strong>
-                </div><br />
-                <form id="AddPhoneForm">
-                    <input type="text" name="newPhone" id="newPhone" style="width: calc(100vw - 400px);" class="surroundSpace fullWidth textStyle" /> <input type="button" onclick="addSingleLineItem('phones','phone','Phone');" value="Add" class="btn btn-outline-info surroundSpace seperateRight" />
-
-                </form>
-            </div>
-          
-          <h4>Addresses</h4>
-          <p>Enter your address as follows: #### Street, City, State ZIPCODE</p>
-          <div id="listAddresses"></div>
-          <div class="profile-line contentBackground addPadding noScroll">
-              <div class="floatLeft">
-                    <strong>Add Another Address: </strong>
-                </div><br />
-                <form id="AddAddressForm">
-                    <input type="text" name="newAddress" id="newAddress" style="width: calc(100vw - 400px);" class="surroundSpace fullWidth textStyle" /> <input type="button" onclick="addSingleLineItem('addresses','address','Address');" value="Add" class="btn btn-outline-info surroundSpace seperateRight" />
-
-                </form>
-            </div>
-          
-          <h4>Websites</h4>
-          <p>List any websites you may want employers to see (i.e. LinkedIn, GitHub, etc.)</p>
-          <div id="listWebsites"></div>
-          <div class="profile-line contentBackground addPadding noScroll">
-              <div class="floatLeft">
-                    <strong>Add Another Website: </strong>
-                </div><br />
-                <form id="AddWebsiteForm">
-                    <input type="text" name="newWebsite" id="newWebsite" style="width: calc(100vw - 400px);" class="surroundSpace fullWidth textStyle" /> <input type="button" onclick="addSingleLineItem('websites','web','Website');" value="Add" class="btn btn-outline-info surroundSpace seperateRight" />
-
-                </form>
-            </div>
-          
-          <h3>Summaries</h3>
-          <p>This is a quick description of what your objective of your resume is (I seek to gain a computer science internship; I want to work for XYZ Tech and help on the project listed on the website, etc.)</p>
-          <div id="listSummaries"></div>
-          <div class="profile-line contentBackground addPadding noScroll">
-              <div class="floatLeft">
-                    <strong>Add Another Summary: </strong>
-                </div><br />
-                <form id="AddSummaryForm">
-                    <textarea name="newSummary" id="newSummary" style="width: calc(100vw - 400px); height: 100px" class="surroundSpace fullWidth textStyle" ></textarea> <input type="button" onclick="addSingleLineItem('summaries','sum','Summary');" value="Add" class="btn btn-outline-info surroundSpace seperateRight" />
-
-                </form>
-            </div>
-          
-          
-          <h3>Certifications</h3>
-          <p>List any professional or technical certifications that you may have. Remember if they are all not applicable to one job, you can select which ones to display later.</p>
-          <div id="listCertifications"></div>
-          <div class="profile-line contentBackground addPadding noScroll">
-              <div class="floatLeft">
-                    <strong>Add Another Certification: </strong>
-                </div><br />
-                <form id="AddCertificationForm">
-                    <input type="text" name="newCertification" id="newCertification" style="width: calc(100vw - 400px);" class="surroundSpace fullWidth textStyle" /> <input type="button" onclick="addSingleLineItem('certs','cert','Certification');" value="Add" class="btn btn-outline-info surroundSpace seperateRight" />
-
-                </form>
-            </div>
-        </div>
-        
-        <a href="resume.html"><button class="btn btn-dark" style="margin: 50px; padding: 15px;">All done? Start managing your résumés now!</button></a>
-
+            <input type="submit" class="form-feild">
+        </form>
     </div>
 
-    <!-- SCRIPTS -->
-
-    <!-- Import on page load scripts -->
-    <script src="scripts/loadscripts.js"></script>
-
-    <!-- Import Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-auth.js"></script>
-    <script
-      src="https://www.gstatic.com/firebasejs/5.8.0/firebase-firestore.js"></script>
-    <script src="scripts/firebasescripts-config.js"></script>
-    <script src="scripts/firebasescripts-db.js"></script>
-    <script src="scripts/firebasescripts-auth.js"></script>
-    <script>
-            auth.onAuthStateChanged(function() {
-                console.log(auth.currentUser);
-                loadCurrentUser(auth.currentUser, [loginoutnav, getInfo]);
-            }, function(error) {
-                console.error(error);
-            });
-        </script>
-    <!-- Import the messager scripts -->
-    <script src="scripts/messages.js"></script>
-    
-      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
-    <!-- Import FontAwesome Edit Icon -->
-    <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
-
-    <!-- Import profile scripts -->
-    <script src="scripts/profilescripts.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
