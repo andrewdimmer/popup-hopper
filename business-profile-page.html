@@ -12,7 +12,8 @@
 
     <link rel="stylesheet" href="styles/style.css" />
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <title>Pop-up Hopper</title>
 </head>
@@ -20,9 +21,11 @@
 <body style="width: 90%; margin-left: 5%;">
     <div>
         <img id="logo" style="margin-left: 45%;" width="100" height="100">
-        <hr/>
+        <hr />
         <div id="information">
-            <h1 style="text-align: center;"><span id="businessName"></span> <span id=FollowButton style="display: none;"><i class="far fa-star"></i></span> <span id=UnfollowButton style="display: none;"><i class="fas fa-star" style="color: gold;"></i></span></h1>
+            <h1 style="text-align: center;"><span id="businessName"></span> <span id=FollowButton
+                    style="display: none;"><i class="far fa-star"></i></span> <span id=UnfollowButton
+                    style="display: none;"><i class="fas fa-star" style="color: gold;"></i></span></h1>
             <h4 id="follows"></h4>
             <p id="description"></p>
         </div>
@@ -30,7 +33,7 @@
         <div id="locations">
             <div class="location">
                 <h5>[City, State]</h5>
-                <hr/>
+                <hr />
                 <p>[Street]</p>
                 <p>[Start date]</p>
                 <p>[End date]</p>
@@ -39,70 +42,79 @@
         <div id="Editable" style="display: none;">
             <h3>Add New Location</h3>
             <form>
-                    <p><input type="text" name="street" placeholder="Street Address" id="street"/><input type="text" name="city" placeholder="City" id="city"/><select name="state" id="state">
-                            <option value="state">State</option>
-                            <option value="Alabama">Alabama</option>
-                            <option value="Alaska">Alaska</option>
-                            <option value="Arizona">Arizona</option>
-                            <option value="Arkansas">Arkansas</option>
-                            <option value="California">California</option>
-                            <option value="Colorado">Colorado</option>
-                            <option value="Connecticut">Connecticut</option>
-                            <option value="Delaware">Delaware</option>
-                            <option value="Florida">Florida</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="Idaho">Idaho</option>
-                            <option value="Illinois">Illinois</option>
-                            <option value="Indiana">Indiana</option>
-                            <option value="Iowa">Iowa</option>
-                            <option value="Kansas">Kansas</option>
-                            <option value="Kentucky">Kentucky</option>
-                            <option value="Louisiana">Louisiana</option>
-                            <option value="Maine">Maine</option>
-                            <option value="Maryland">Maryland</option>
-                            <option value="Massachusetts">Massachusetts</option>
-                            <option value="Michigan">Michigan</option>
-                            <option value="Minnesota">Minnesota</option>
-                            <option value="Mississippi">Mississippi</option>
-                            <option value="Missouri">Missouri</option>
-                            <option value="Montana">Montana</option>
-                            <option value="Nebraska">Nebraska</option>
-                            <option value="Nevada">Nevada</option>
-                            <option value="New Hampshire">New Hampshire</option>
-                            <option value="New Jersey">New Jersey</option>
-                            <option value="New Mexico">New Mexico</option>
-                            <option value="New York">New York</option>
-                            <option value="North Carolina">North Carolina</option>
-                            <option value="North Dakota">North Dakota</option>
-                            <option value="Ohio">Ohio</option>
-                            <option value="Oklahoma">Oklahoma</option>
-                            <option value="Oregon">Oregon</option>
-                            <option value="Pennsylvania">Pennsylvania</option>
-                            <option value="Rhode Island">Rhode Island</option>
-                            <option value="South Carolina">South Carolina</option>
-                            <option value="South Dakota">South Dakota</option>
-                            <option value="Tennessee">Tennessee</option>
-                            <option value="Texas">Texas</option>
-                            <option value="Utah">Utah</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Virginia">Virginia</option>
-                            <option value="Washington">Washington</option>
-                            <option value="West Virginia">West Virginia</option>
-                            <option value="Wisconsin">Wisconsin</option>
-                            <option value="Wyoming">Wyoming</option>
-                        </select><input type="number" name="zipcode" placeholder="Zip Code" style="margin-right: 0px;" id="zipcode"/><input type="text" name="locationDescription" placeholder="Other Info (Booth number, offers, description of the event, etc.)" id="locationDescription" style="width: 100%;"/><input type="text" name="featured" placeholder="Featured Product Photo URL" id="featured" style="width: 100%;"/>
-                        <input type="date" name="startDate" id="startDate">
-                        <input type="time" name="startTime" id="startTime">
-                        <input type="date" name="stopDate" id="stopDate">
-                        <input type="time" name="stopTime" id="stopTime"><br/></p>
-                        <button type="button" class="btn btn-outline-secondary" onclick="addLocation()">Submit</button>
+                <p><input type="text" name="street" placeholder="Street Address" id="street" /><input type="text"
+                        name="city" placeholder="City" id="city" /><select name="state" id="state">
+                        <option value="state">State</option>
+                        <option value="Alabama">Alabama</option>
+                        <option value="Alaska">Alaska</option>
+                        <option value="Arizona">Arizona</option>
+                        <option value="Arkansas">Arkansas</option>
+                        <option value="California">California</option>
+                        <option value="Colorado">Colorado</option>
+                        <option value="Connecticut">Connecticut</option>
+                        <option value="Delaware">Delaware</option>
+                        <option value="Florida">Florida</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Hawaii">Hawaii</option>
+                        <option value="Idaho">Idaho</option>
+                        <option value="Illinois">Illinois</option>
+                        <option value="Indiana">Indiana</option>
+                        <option value="Iowa">Iowa</option>
+                        <option value="Kansas">Kansas</option>
+                        <option value="Kentucky">Kentucky</option>
+                        <option value="Louisiana">Louisiana</option>
+                        <option value="Maine">Maine</option>
+                        <option value="Maryland">Maryland</option>
+                        <option value="Massachusetts">Massachusetts</option>
+                        <option value="Michigan">Michigan</option>
+                        <option value="Minnesota">Minnesota</option>
+                        <option value="Mississippi">Mississippi</option>
+                        <option value="Missouri">Missouri</option>
+                        <option value="Montana">Montana</option>
+                        <option value="Nebraska">Nebraska</option>
+                        <option value="Nevada">Nevada</option>
+                        <option value="New Hampshire">New Hampshire</option>
+                        <option value="New Jersey">New Jersey</option>
+                        <option value="New Mexico">New Mexico</option>
+                        <option value="New York">New York</option>
+                        <option value="North Carolina">North Carolina</option>
+                        <option value="North Dakota">North Dakota</option>
+                        <option value="Ohio">Ohio</option>
+                        <option value="Oklahoma">Oklahoma</option>
+                        <option value="Oregon">Oregon</option>
+                        <option value="Pennsylvania">Pennsylvania</option>
+                        <option value="Rhode Island">Rhode Island</option>
+                        <option value="South Carolina">South Carolina</option>
+                        <option value="South Dakota">South Dakota</option>
+                        <option value="Tennessee">Tennessee</option>
+                        <option value="Texas">Texas</option>
+                        <option value="Utah">Utah</option>
+                        <option value="Vermont">Vermont</option>
+                        <option value="Virginia">Virginia</option>
+                        <option value="Washington">Washington</option>
+                        <option value="West Virginia">West Virginia</option>
+                        <option value="Wisconsin">Wisconsin</option>
+                        <option value="Wyoming">Wyoming</option>
+                    </select><input type="number" name="zipcode" placeholder="Zip Code" style="margin-right: 0px;"
+                        id="zipcode" /><input type="text" name="locationDescription"
+                        placeholder="Other Info (Booth number, offers, description of the event, etc.)"
+                        id="locationDescription" style="width: 100%;" /><input type="text" name="featured"
+                        placeholder="Featured Product Photo URL" id="featured" style="width: 100%;" />
+                    <h4>Start date/time</h4>
+                    <input type="date" name="startDate" id="startDate">
+                    <input type="time" name="startTime" id="startTime">
+                    <h4>End date/time</h4>
+                    <input type="date" name="stopDate" id="stopDate">
+                    <input type="time" name="stopTime" id="stopTime"><br />
+                </p>
+                <button type="button" class="btn btn-outline-secondary" onclick="addLocation()">Submit</button>
             </form>
             <h3>Send a Message</h3>
             <form>
-                <p><input type="text" id="subject" placeholder="Message subject" style="width: 100%;"><br/></p>
-                <p><textarea id="message" placeholder="Message" style="width: 100%; border-radius: 4px; border-width: 2px; padding: 4px; resize: both; border-color: #EF5608""></textarea></p>
-                <button type="button" class="btn btn-outline-secondary submit" onclick="submitMessage()">Submit</button>
+                <p><input type="text" id="subject" placeholder="Message subject" style="width: 100%;"><br /></p>
+                <p><textarea id="message" placeholder="Message"
+                        style="width: 100%; border-radius: 4px; border-width: 2px; padding: 4px; resize: both; border-color: #EF5608""></textarea></p>
+                <button type=" button" class="btn btn-outline-secondary submit" onclick="submitMessage()">Submit</button>
             </form>
         </div>
     </div>
