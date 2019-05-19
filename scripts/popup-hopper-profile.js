@@ -524,6 +524,17 @@ function displayClientData(cID) {
                 }
                 document.getElementById("messages").innerHTML = messagesString;
             }
+            if (location.href.indexOf("index.html") > -1) {
+                var listBiz = db.collection("businesses").doc("Temp");
+                listBiz.get().then(function (bizList) {
+                    console.log(bizList.data().All);
+                    for (var i = 0; i < bizList.data().All.length; i++) {
+                        console.log(bizList.data().All[i]);
+                        var url = location.href.substring(0,location.href.lastIndexOf("/")) + "/business-profile-page.html?id=" + bizList.data().All[i].bID;
+                        document.getElementById("businessList").innerHTML += "<h2><a href='" + url + "' >" + bizList.data().All[i].BusinessName + "</a></h2>";
+                    }
+                });
+            }
             console.log("Current data: ", doc.data());
         }
     });
