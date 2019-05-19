@@ -277,6 +277,17 @@ input[type=textarea] {
 
 }
 
-.location {
-    border-width: 1px;
+.location, .message {
+    border-width: 4px;
+    border-color: #EF5608;
+    border-style: solid;
+    padding: 4px;
+    margin-bottom: 3px;
+    border-radius: 4px;
+}
+
+.lockSize {
+    height: 100px;
+    float: left;
+    margin: 5px;
 }

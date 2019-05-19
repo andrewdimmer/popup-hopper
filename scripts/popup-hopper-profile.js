@@ -365,7 +365,7 @@ function displayBusinessData(bID, clientView) {
                                 if (currentLocation.Featured.indexOf("http") > -1) {
                                     featuredURL = currentLocation.Featured;
                                 }
-                                locationString += "<div class='location'><h5>" + currentLocation.Address.City + ", " + currentLocation.Address.State + "</h5><img src=" + featuredURL + " class=locationImage><p>" + currentLocation.Address.String + "</p><p>" + currentLocation.DateTime.StartString + " - " + currentLocation.DateTime.StopString + "</p><p>" + currentLocation.Description + "</p></div>";
+                                locationString += "<div class='location'><h5>" + currentLocation.Address.City + ", " + currentLocation.Address.State + "</h5><img src=" + featuredURL + " class='locationImage lockSize'><p>" + currentLocation.Address.String + "</p><p>" + currentLocation.DateTime.StartString + " - " + currentLocation.DateTime.StopString + "</p><p>" + currentLocation.Description + "</p></div>";
                             }
                         }
                         if (locationString.length > 0) {
