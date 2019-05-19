@@ -179,6 +179,10 @@ function sendMessage(subject, message) {
         if (doc.exists) {
             var businessData = doc.data();
             sent = 0;
+            if (businessData.Followers.length == 0) {
+                alert("Success!");
+                return 0;
+            }
             for (var i = 0; i < businessData.Followers.length; i++){
                 var userToMessage = db.collection("clients").doc(businessData.Followers[i].cID);
                 db.runTransaction(function(transaction) {
@@ -192,7 +196,7 @@ function sendMessage(subject, message) {
                             "Subject": subject,
                             "Message": message,
                             "Sender": businessData.BusinessName,
-                            "Date": (new Date()).toDateString()
+                            "Date": (new Date()).toString()
                         });
                         transaction.update(userToMessage, {Messages: messages});
                     });
@@ -200,7 +204,7 @@ function sendMessage(subject, message) {
                     console.log("Transaction successfully committed!");
                     sent++;
                     if (sent == businessData.Followers.length) {
-                        alert("All Messages Sent!");
+                        alert("Success!");
                     }
                 }).catch(function(error) {
                     console.log("Transaction failed: ", error);
@@ -214,8 +218,21 @@ function sendMessage(subject, message) {
     });
 }
 
-function addLocation(paremeters) {
-    var cID = document.cookie.substring(document.cookie.indexOf("=")+1);
+function addLocation() {
+    var complete;
+    var parameters = {
+        "street": document.getElementById("street").value,
+        "city": document.getElementById("city").value,
+        "state": document.getElementById("state").value,
+        "zip": document.getElementById("zipcode").value,
+        "street": document.getElementById("street").value,
+        "startDate": new Date(document.getElementById("startDate").value + " " + document.getElementById("startTime").value),
+        "stopDate": new Date(document.getElementById("stopDate").value + " " + document.getElementById("stopTime").value),
+        "description": document.getElementById("description").value,
+        "featured": document.getElementById("featured").value,
+    }
+    
+    var bID = document.cookie.substring(document.cookie.indexOf("=")+1);
     var business = db.collection("businesses").doc(bID);
     business.get().then(function(doc) {
         if (doc.exists) {
@@ -242,15 +259,14 @@ function addLocation(paremeters) {
                             "String": parameters.street + ", " + parameters.city + ", " + parameters.state + " " + parameters.zip
                         },
                         "DateTime":{
-                            "StartString": parameters.startDate.toDateString(),
-                            "StopString": parameters.stopDate.toDateString(),
+                            "StartString": parameters.startDate.toString(),
+                            "StopString": parameters.stopDate.toString(),
                             "StartInt": parameters.startDate.getTime(),
                             "StopInt": parameters.stopDate.getTime()
                         },
-                        "Featured": parameters.photo,
+                        "Featured": parameters.featured,
                         "Description": parameters.description,
                         "lID": lID,
-                        "offers": parameters.offers,
                         "bID": businessData.bID
                     }).then(function() {
                         db.runTransaction(function(transaction) {
@@ -278,7 +294,11 @@ function addLocation(paremeters) {
                                 });
                             }).then(function() {
                                 console.log("Transaction successfully committed!");
-                                // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                var subject = businessData.BusinessName + " has a new pop-up coming soon!";
+                                var message = businessData.BusinessName + " wil have a pop-up shop at " + parameters.street + ", " + parameters.city + ", " + parameters.state + " " + parameters.zip + " from " +  parameters.startDate.toString() + " to " +  parameters.stopDate.toString() + ". Come check it out!</br></br>More info avaliable at " + location.href + ".";
+                                console.log(subject);
+                                console.log(message);
+                                sendMessage(subject, message);
                             }).catch(function(error) {
                                 console.log("Transaction failed: ", error);
                             });
@@ -329,6 +349,18 @@ function displayClientData(cID) {
     });
 }
 
+function displayLocationData(lID) {
+    var oldMessageNumber;
+    db.collection("locations").doc(lID)
+    .onSnapshot(function(doc) {
+        if (!doc.exists) {
+            console.log("ERROR! Docuemnt does not exist!");
+        } else {
+            console.log("Current data: ", doc.data());
+        }
+    });
+}
+
 function login() {
     var email = document.getElementById("userEmail").value();
     var currentURL = location.href.substring(0,location.href.lastIndexOf("/"));
@@ -336,13 +368,13 @@ function login() {
     var userLoggingIn = db.collection("clients").where("Email","==",email)
     userLoggingIn.get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
-        alert("Email found! In the future, you will receive this login link in an email. Currently, just go to " + currentURL + "?id=" + doc.data().cID + " to login as " + doc.data().Name + ".");
+        alert("Email found! In the future, you will receive this login link in an email. Currently, just go to " + currentURL + "/?id=" + doc.data().cID + " to login as " + doc.data().Name + ".");
         found = true;
     }).then(function() {
         userLoggingIn = db.collection("businesses").where("Email","==",email)
         userLoggingIn.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-            alert("Email found! In the future, you will receive this login link in an email. Currently, just go to " + currentURL + "?id=" + doc.data().bID + " to login as " + doc.data().BusinessName + ".");
+            alert("Email found! In the future, you will receive this login link in an email. Currently, just go to " + currentURL + "/?id=" + doc.data().bID + " to login as " + doc.data().BusinessName + ".");
             found = true;
         }).then(function(){
             if (!found) {
