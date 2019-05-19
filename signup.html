@@ -36,15 +36,15 @@
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body">
                 <div class="business-form">
-                    <form>
+                    <form name=clientForm id=clientForm>
 
-                        <input type="text" class="form-feild" placeholder="Name" id="client-name">
-                        <input type="text" class="form-feild" placeholder="Email" id="client-email">
+                        <input type="text" class="form-feild" placeholder="Name" id="clientName">
+                        <input type="text" class="form-feild" placeholder="Email" id="clientEmail">
 
                         <input type="text" class="form-feild" placeholder="URL of profile picture"
-                            id="client-profile-picture">
+                            id="clientPhoto">
 
-                        <input type="number" placeholder="Brith year" id="client-age" class="form-feild">
+                        <input type="number" placeholder="Brith year" id="clientYear" class="form-feild">
 
                         <div>
                             <h4 class="form-feild">Gender</h4>
@@ -77,7 +77,7 @@
                         </select>
 
                         <h4 class="form-feild">Ethnicity</h4>
-                        <select name="ethnicity" class="form-feild">
+                        <select name="race" class="form-feild">
                             <option value=""></option>
                             <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
                             <option value="Asian">Asian</option>
@@ -98,41 +98,41 @@
                         <option value="Textiles">Textiles</option>
                     </select><br /> -->
 
-                        <div class=form-feild">
+                        <div class="form-feild">
                             <label class="container form-feild">Art
-                                <input type="checkbox" value="Art">
+                                <input id="ArtC" type="checkbox" value="Art">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container form-feild">Fashion
-                                <input type="checkbox" value="Fashion">
+                                <input id="FashionC" type="checkbox" value="Fashion">
                                 <span class="checkmark"></span>
                             </label>
 
                             <label class="container form-feild">Food
-                                <input type="checkbox" value="Food">
+                                <input id="FoodC" type="checkbox" value="Food">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container form-feild">Health
-                                <input type="checkbox" value="Health">
+                                <input id="HealthC" type="checkbox" value="Health">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container form-feild">Music
-                                <input type="checkbox" value="Music">
+                                <input id="MusicC" type="checkbox" value="Music">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container form-feild">Sports
-                                <input type="checkbox" value="Sports">
+                                <input id="SportsC" type="checkbox" value="Sports">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container form-feild">Textiles
-                                <input type="checkbox" value="Textiles">
+                                <input id="TextilesC" type="checkbox" value="Textiles">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
 
 
 
-                        <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="">Submit</button>
+                        <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="createClientAccount()">Submit</button>
                     </form>
                 </div>
             </div>
@@ -153,52 +153,52 @@
                     <div class="business-form">
                         <form>
 
-                                <input type="text" class="form-feild" placeholder="Contact Name" id="contact-name">
-                                <input type="text" class="form-feild" placeholder="Contact Email" id="contact-email">
+                                <input type="text" class="form-feild" placeholder="Contact Name" id="contactName">
+                                <input type="text" class="form-feild" placeholder="Contact Email" id="contactEmail">
 
-                            <input type="text" id="business-name" placeholder="The name of your business"
+                            <input type="text" id="businessName" placeholder="The name of your business"
                                 class="form-feild"><br />
-                            <textarea id="business-description" placeholder="Describe your business"
+                            <textarea id="businessDescription" placeholder="Describe your business"
                                 class="form-feild form-control"></textarea><br />
 
-                            <input type="text" id="business-logo" placeholder="Valid URL of your logo image"
+                            <input type="text" id="businessLogo" placeholder="Valid URL of your logo image"
                                 class="form-feild"><br />
 
 
-                            <h4 class="form-feild">Market</h4>
-                            <div class=form-feild">
+                            <h4 class="form-feild">Market (Choose only one)</h4>
+                            <div class="form-feild">
                                 <label class="container form-feild">Art
-                                    <input type="checkbox" value="Art">
+                                    <input id="ArtB" type="checkbox" value="Art">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="container form-feild">Fashion
-                                    <input type="checkbox" value="Fashion">
+                                    <input id="FashionB" type="checkbox" value="Fashion">
                                     <span class="checkmark"></span>
                                 </label>
 
                                 <label class="container form-feild">Food
-                                    <input type="checkbox" value="Food">
+                                    <input id="FoodB" type="checkbox" value="Food">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="container form-feild">Health
-                                    <input type="checkbox" value="Health">
+                                    <input id="HealthB" type="checkbox" value="Health">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="container form-feild">Music
-                                    <input type="checkbox" value="Music">
+                                    <input id="MusicB" type="checkbox" value="Music">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="container form-feild">Sports
-                                    <input type="checkbox" value="Sports">
+                                    <input id="SportsB" type="checkbox" value="Sports">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="container form-feild">Textiles
-                                    <input type="checkbox" value="Textiles">
+                                    <input id="TextilesB" type="checkbox" value="Textiles">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
 
-                            <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="">Submit</button>
+                            <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="createBusinessAccount()">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                     <div class="business-form">
                         <form>
                             <input type="text" placeholder="Email address" id="userEmail" class="form-feild">
-                            <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="">Submit</button>
+                            <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="login()">Submit</button>
                         </form>
                     </div>
                 </div>

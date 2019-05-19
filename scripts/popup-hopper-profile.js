@@ -1,93 +1,155 @@
-var debug = true;
+var debug = false;
 
 // Creates a new user account directly after the user signs up.
-function createUserAccount(parameters) {
-    if (parameters.type == 0) {
-        var cID = "c-" + generateID(10);
-        var newClient = db.collection("clients").doc(cID);
-        console.log(cID + " reserved");
-        newClient.get().then(function(doc) {
-            if (doc.exists) {
-                console.log(cID + " exists");
-                console.log("Duplicate ID. Trying again...");
-                createUserAccount(parameters);
-            } else {
-                console.log(cID + " does not exist");
-                document.cookie = "id=" + cID;
-                newClient.set({
-                    "Name": parameters.name,
-                    "Email": parameters.email,
-                    "Demographics": {
-                        "BirthYear": parameters.year,
-                        "Gender": parameters.gender,
-                        "Income": parameters.income,
-                        "Race": parameters.race
-                    },
-                    "Photo": parameters.photo,
-                    "Interests": parameters.interests,
-                    "Following": [],
-                    "cID": cID,
-                    "Messages": []
-                }).then(function() {
-                    window.location.href = "index.html"
-                }).catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
-    } else if (parameters.type == 1) {
-        var bID = "b-" + generateID(10);
-        var newBusiness = db.collection("businesses").doc(bID);
-        console.log(bID + " reserved");
-        newBusiness.get().then(function(doc) {
-            if (doc.exists) {
-                console.log(bID + " exists");
-                console.log("Duplicate ID. Trying again...");
-                createUserAccount(parameters);
-            } else {
-                console.log(bID + " does not exist");
-                document.cookie = "id=" + bID;
-                newBusiness.set({
-                    "ContactName": parameters.contactName,
-                    "ContactEmail": parameters.email,
-                    "BusinessName": parameters.businessName,
-                    "Description": parameters.description,
-                    "Logo": parameters.logo,
-                    "Locations": [],
-                    "Followers": [],
-                    "Category": parameters.category,
-                    "bID": bID,
-                }).then(function() {
-                    console.log("Document successfully written!");
-                    var updateInterests = db.collection("interests").doc(parameters.category);
-                    db.runTransaction(function(transaction) {
-                        // This code may get re-run multiple times if there are conflicts.
-                        return transaction.get(updateInterests).then(function(interestDoc) {
-                            if (!interestDoc.exists) {
-                                console.log("Document does not exist!");
-                            }
-                            var businesses = interestDoc.data().Businesses;
-                            businesses.push(bID);
-                            transaction.update(updateInterests, {Businesses: businesses});
-                        });
-                    }).then(function() {
-                        console.log("Transaction successfully committed!");
-                        window.location.href = "index.html";
-                    }).catch(function(error) {
-                        console.log("Transaction failed: ", error);
-                    });
-                }).catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
-    } else {
-        console.log("Invalid Type Error!");
+function createClientAccount() {
+    var interests = [];
+    if (document.getElementById("ArtC").value) {
+        interests.push("Art");
     }
+    if (document.getElementById("FashionC").value) {
+        interests.push("Fashion");
+    }
+    if (document.getElementById("FoodC").value) {
+        interests.push("Food");
+    }
+    if (document.getElementById("HealthC").value) {
+        interests.push("Heath");
+    }
+    if (document.getElementById("MusicC").value) {
+        interests.push("Music");
+    }
+    if (document.getElementById("SportsC").value) {
+        interests.push("Sports");
+    }
+    if (document.getElementById("TextilesC").value) {
+        interests.push("Textiles");
+    }
+    var parameters = {
+        "name": document.getElementById("clientName").value,
+        "email": document.getElementById("clientEmail").value,
+        "photo": document.getElementById("clientPhoto").value,
+        "year": document.getElementById("clientYear").value,
+        "gender": document.forms["clientForm"].getElementsByTagName("gender").value,
+        "income": document.forms["clientForm"].getElementsByTagName("income").value,
+        "race": document.forms["clientForm"].getElementsByTagName("race").value,
+        "interests": interests
+    };
+    
+    var cID = "c-" + generateID(10);
+    var newClient = db.collection("clients").doc(cID);
+    console.log(cID + " reserved");
+    newClient.get().then(function(doc) {
+        if (doc.exists) {
+            console.log(cID + " exists");
+            console.log("Duplicate ID. Trying again...");
+            createUserAccount(parameters);
+        } else {
+            console.log(cID + " does not exist");
+            document.cookie = "id=" + cID;
+            newClient.set({
+                "Name": parameters.name,
+                "Email": parameters.email,
+                "Demographics": {
+                    "BirthYear": parameters.year,
+                    //"Gender": parameters.gender,
+                    //"Income": parameters.income,
+                    //"Race": parameters.race
+                },
+                "Photo": parameters.photo,
+                "Interests": parameters.interests,
+                "Following": [],
+                "cID": cID,
+                "Messages": []
+            }).then(function() {
+                window.location.href = "index.html"
+            }).catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+function createBusinessAccount() {
+    var interests = [];
+    if (document.getElementById("ArtB").value) {
+        interests.push("Art");
+    }
+    if (document.getElementById("FashionB").value) {
+        interests.push("Fashion");
+    }
+    if (document.getElementById("FoodB").value) {
+        interests.push("Food");
+    }
+    if (document.getElementById("HealthB").value) {
+        interests.push("Heath");
+    }
+    if (document.getElementById("MusicB").value) {
+        interests.push("Music");
+    }
+    if (document.getElementById("SportsB").value) {
+        interests.push("Sports");
+    }
+    if (document.getElementById("TextilesB").value) {
+        interests.push("Textiles");
+    }
+    var parameters = {
+        "contactName": document.getElementById("contactName").value,
+        "businessName": document.getElementById("businessName").value,
+        "email": document.getElementById("contactEmail").value,
+        "logo": document.getElementById("businessLogo").value,
+        "description": document.getElementById("businessDescription").value,
+        "category": interests[0]
+    };
+    
+    var bID = "b-" + generateID(10);
+    var newBusiness = db.collection("businesses").doc(bID);
+    console.log(bID + " reserved");
+    newBusiness.get().then(function(doc) {
+        if (doc.exists) {
+            console.log(bID + " exists");
+            console.log("Duplicate ID. Trying again...");
+            createUserAccount(parameters);
+        } else {
+            console.log(bID + " does not exist");
+            document.cookie = "id=" + bID;
+            newBusiness.set({
+                "ContactName": parameters.contactName,
+                "ContactEmail": parameters.email,
+                "BusinessName": parameters.businessName,
+                "Description": parameters.description,
+                "Logo": parameters.logo,
+                "Locations": [],
+                "Followers": [],
+                "Category": parameters.category,
+                "bID": bID,
+            }).then(function() {
+                console.log("Document successfully written!");
+                var updateInterests = db.collection("interests").doc(parameters.category);
+                db.runTransaction(function(transaction) {
+                    // This code may get re-run multiple times if there are conflicts.
+                    return transaction.get(updateInterests).then(function(interestDoc) {
+                        if (!interestDoc.exists) {
+                            console.log("Document does not exist!");
+                        }
+                        var businesses = interestDoc.data().Businesses;
+                        businesses.push(bID);
+                        transaction.update(updateInterests, {Businesses: businesses});
+                    });
+                }).then(function() {
+                    console.log("Transaction successfully committed!");
+                    window.location.href = "index.html";
+                }).catch(function(error) {
+                    console.log("Transaction failed: ", error);
+                });
+            }).catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 }
 
 function follow(bID) {
@@ -118,7 +180,7 @@ function follow(bID) {
             });
         }).then(function() {
             console.log("Transaction successfully committed!");
-            alert("Success!");
+            //alert("Success!");
         }).catch(function(error) {
             console.log("Transaction failed: ", error);
         });
@@ -166,7 +228,7 @@ function unfollow(bID) {
             });
         }).then(function() {
             console.log("Transaction successfully committed!");
-            alert("Success!");
+            //alert("Success!");
         }).catch(function(error) {
             console.log("Transaction failed: ", error);
         });
@@ -303,7 +365,7 @@ function addLocation() {
                             }).then(function() {
                                 console.log("Transaction successfully committed!");
                                 var subject = businessData.BusinessName + " has a new pop-up coming soon!";
-                                var message = businessData.BusinessName + " wil have a pop-up shop at " + parameters.street + ", " + parameters.city + ", " + parameters.state + " " + parameters.zip + " from " +  parameters.startDate.toString() + " to " +  parameters.stopDate.toString() + ". Come check it out!</br></br>More info avaliable at <a href=" + location.href + ">" + location.href + "</a>.";
+                                var message = businessData.BusinessName + " wil have a pop-up shop at " + parameters.street + ", " + parameters.city + ", " + parameters.state + " " + parameters.zip + " from " +  parameters.startDate.toString() + " to " +  parameters.stopDate.toString() + ". Come check it out!</br></br>More info avaliable at <a href=" + location.href + "?id=" + businessData.bID + ">" + location.href + "?id=" + businessData.bID + "</a>.";
                                 console.log(subject);
                                 console.log(message);
                                 sendMessage(subject, message);
@@ -480,7 +542,7 @@ function displayLocationData(lID) {
 }
 
 function login() {
-    var email = document.getElementById("userEmail").value();
+    var email = document.getElementById("userEmail").value;
     var currentURL = location.href.substring(0,location.href.lastIndexOf("/"));
     var found = false;
     var userLoggingIn = db.collection("clients").where("Email","==",email)
@@ -488,22 +550,25 @@ function login() {
     querySnapshot.forEach(function (doc) {
         alert("Email found! In the future, you will receive this login link in an email. Currently, just go to " + currentURL + "/?id=" + doc.data().cID + " to login as " + doc.data().Name + ".");
         found = true;
-    }).then(function() {
-        userLoggingIn = db.collection("businesses").where("Email","==",email)
-        userLoggingIn.get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-            alert("Email found! In the future, you will receive this login link in an email. Currently, just go to " + currentURL + "/?id=" + doc.data().bID + " to login as " + doc.data().BusinessName + ".");
-            found = true;
-        }).then(function(){
-            if (!found) {
-                alert("No users with that email found!");
-            }
-        });
-        });
     });
     });
 }
 
 function compareLocations(a, b) {
   return a.DateTime.StartInt - b.DateTime.StartInt;
+}
+
+function search() {
+    var found = false;
+    var searchString = document.getElementById("searchBar").value;
+    var businessSearch = db.collection("businesses").where("BusinessName", "==", searchString);
+    businessSearch.get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            location.href = location.href.substring(0,location.href.lastIndexOf("/")) + "/business-profile-page.html?id=" + doc.data().bID;
+        }).then(function(){
+            if (!found) {
+                alert("No businesses found with that name!");
+            }
+        });
+    })
 }
