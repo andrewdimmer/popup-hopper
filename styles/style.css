@@ -170,7 +170,7 @@ input[type=reset] {
     padding: 5px;
 }
 
-input[type=submit] {
+.submit {
     border: 2px solid #EF5608;
     border-radius: 4px;
     color: #EF5608;
@@ -275,4 +275,8 @@ input[type=textarea] {
     margin-top: 5%;
     color: #EF5608;
 
+}
+
+.location {
+    border-width: 1px;
 }

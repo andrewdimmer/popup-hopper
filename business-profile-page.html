@@ -37,7 +37,7 @@
         <div id="Editable" style="display: none;">
             <h3>Add New Location</h3>
             <form>
-                    <input type="text" name="street" placeholder="Street Address" id="street"/><input type="text" name="city" placeholder="City" id="city"/><select name="state" id="state">
+                    <p><input type="text" name="street" placeholder="Street Address" id="street"/><input type="text" name="city" placeholder="City" id="city"/><select name="state" id="state">
                             <option value="state">State</option>
                             <option value="Alabama">Alabama</option>
                             <option value="Alaska">Alaska</option>
@@ -93,9 +93,15 @@
                         <input type="date" name="startDate" id="startDate">
                         <input type="time" name="startTime" id="startTime">
                         <input type="date" name="stopDate" id="stopDate">
-                        <input type="time" name="stopTime" id="stopTime">
+                        <input type="time" name="stopTime" id="stopTime"><br/></p>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addLocation()">Submit</button>
             </form>
             <h3>Send a Message</h3>
+            <form>
+                <p><input type="text" id="subject" placeholder="Message subject" style="width: 100%;"><br/></p>
+                <p><textarea id="message" placeholder="Message" style="width: 100%; border-radius: 4px; border-width: 2px; padding: 4px;resize: both;""></textarea></p>
+                <button type="button" class="btn btn-outline-secondary submit" onclick="submitMessage()">Submit</button>
+            </form>
         </div>
     </div>
     <!-- Optional JavaScript -->

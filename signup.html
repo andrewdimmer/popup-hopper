@@ -16,71 +16,76 @@
 </head>
 
 <body style="width: 90%; margin: 5%;">
-        <div class="signIn">
-    <div class="accordion" id="accordionExample">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="false" aria-controls="collapseOne">
-                        Sign up as a shopper
-                    </button>
-                </h2>
+    <div class="signIn">
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="false" aria-controls="collapseOne">
+                            Sign up as a shopper
+                        </button>
+                    </h2>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">
-            <div class="business-form">
-                <form>
-                    <h3 class="form-feild form-heading">Personal Information</h3>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="business-form">
+                    <form>
 
-                    <input type="number" placeholder="Brith year" id="client-age" class="form-feild">
+                        <input type="text" class="form-feild" placeholder="Name" id="client-name">
+                        <input type="text" class="form-feild" placeholder="Email" id="client-email">
 
-                    <div>
-                        <h4 class="form-feild">Gender</h4>
-                        <label class="form-input-container form-text form-feild">
-                            <input type="radio" name="gender" value="Male">
-                            Male
-                            <span class="radiobutton"></span>
-                        </label>
+                        <input type="text" class="form-feild" placeholder="URL of profile picture"
+                            id="client-profile-picture">
 
-                        <label class="form-input-container form-text form-feild">
-                            <input type="radio" name="gender" value="Female">
-                            Female
-                            <span class="radiobutton"></span>
-                        </label>
+                        <input type="number" placeholder="Brith year" id="client-age" class="form-feild">
 
-                        <label class="form-input-container form-text form-feild">
-                            <input type="radio" name="gender" value="T">
-                            Other
-                            <span class="radiobutton"></span>
-                        </label>
-                    </div>
-                    <h4 class="form-feild">Income</h4>
-                    <select name="income" class="form-feild">
-                        <option value=""></option>
-                        <option value="Less than $20,000">Less than $20,000</option>
-                        <option value="$20,000 to $34,999">$20,000 to $34,999</option>
-                        <option value="$35,000 to $49,999">$35,000 to $49,999</option>
-                        <option value="$50,000 to $74,999">$50,000 to $74,999</option>
-                        <option value="Over $100,000">Over $100,000</option>
-                    </select>
+                        <div>
+                            <h4 class="form-feild">Gender</h4>
+                            <label class="form-input-container form-text form-feild">
+                                <input type="radio" name="gender" value="Male">
+                                Male
+                                <span class="radiobutton"></span>
+                            </label>
 
-                    <h4 class="form-feild">Ethnicity</h4>
-                    <select name="ethnicity" class="form-feild">
-                        <option value=""></option>
-                        <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
-                        <option value="Asian">Asian</option>
-                        <option value="Hispanic, Latino, or of Spanish">Hispanic, Latino, or of Spanish</option>
-                        <option value="Black or African American">Black or African American</option>
-                        <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific
-                            Islander</option>
-                        <option value="White">White</option>
-                    </select>
+                            <label class="form-input-container form-text form-feild">
+                                <input type="radio" name="gender" value="Female">
+                                Female
+                                <span class="radiobutton"></span>
+                            </label>
 
-                    <!--                     <select name="intrests" class="form-feild">
+                            <label class="form-input-container form-text form-feild">
+                                <input type="radio" name="gender" value="T">
+                                Other
+                                <span class="radiobutton"></span>
+                            </label>
+                        </div>
+                        <h4 class="form-feild">Income</h4>
+                        <select name="income" class="form-feild">
+                            <option value=""></option>
+                            <option value="Less than $20,000">Less than $20,000</option>
+                            <option value="$20,000 to $34,999">$20,000 to $34,999</option>
+                            <option value="$35,000 to $49,999">$35,000 to $49,999</option>
+                            <option value="$50,000 to $74,999">$50,000 to $74,999</option>
+                            <option value="Over $100,000">Over $100,000</option>
+                        </select>
+
+                        <h4 class="form-feild">Ethnicity</h4>
+                        <select name="ethnicity" class="form-feild">
+                            <option value=""></option>
+                            <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                            <option value="Asian">Asian</option>
+                            <option value="Hispanic, Latino, or of Spanish">Hispanic, Latino, or of Spanish</option>
+                            <option value="Black or African American">Black or African American</option>
+                            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific
+                                Islander</option>
+                            <option value="White">White</option>
+                        </select>
+
+                        <!--                     <select name="intrests" class="form-feild">
                         <option value="Art">Art</option>
                         <option value="Fashion">Fashion</option>
                         <option value="Food">Food</option>
@@ -90,71 +95,6 @@
                         <option value="Textiles">Textiles</option>
                     </select><br /> -->
 
-                    <div class=form-feild">
-                        <label class="container form-feild">Art
-                            <input type="checkbox" value="Art">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container form-feild">Fashion
-                            <input type="checkbox" value="Fashion">
-                            <span class="checkmark"></span>
-                        </label>
-
-                        <label class="container form-feild">Food
-                            <input type="checkbox" value="Food">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container form-feild">Health
-                            <input type="checkbox" value="Health">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container form-feild">Music
-                            <input type="checkbox" value="Music">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container form-feild">Sports
-                            <input type="checkbox" value="Sports">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container form-feild">Textiles
-                            <input type="checkbox" value="Textiles">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-
-                    <input type="text" class="form-feild" placeholder="URL of profile picture"
-                        id="client-profile-picture">
-
-                    <input type="submit" class="form-feild">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="signIn">
-    <div class="card">
-        <div class="card-header" id="headingTwo">
-            <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    Sign up as a business
-                </button>
-            </h2>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            <div class="card-body">
-                <div class="business-form">
-                    <form>
-                        <input type="text" id="business-name" placeholder="The name of your business"
-                            class="form-feild"><br />
-                        <textarea id="business-description" placeholder="Describe your business"
-                            class="form-feild form-control"></textarea><br />
-
-                        <input type="text" id="business-logo" placeholder="Valid URL of your logo image"
-                            class="form-feild"><br />
-
-
-                        <h4 class="form-feild">Market</h4>
                         <div class=form-feild">
                             <label class="container form-feild">Art
                                 <input type="checkbox" value="Art">
@@ -187,34 +127,103 @@
                             </label>
                         </div>
 
-                        <input type="submit" class="form-feild">
+
+
+                        <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="signIn">
-    <div class="card">
-        <div class="card-header" id="headingThree">
-            <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    Login
-                </button>
-            </h2>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-            <div class="card-body">
-                <div class="business-form">
-                    <form>
-                        <input type="text" placeholder="Email address" id="userEmail">
-                    </form>
+    <div class="signIn">
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Sign up as a business
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="business-form">
+                        <form>
+
+                                <input type="text" class="form-feild" placeholder="Contact Name" id="contact-name">
+                                <input type="text" class="form-feild" placeholder="Contact Email" id="contact-email">
+
+                            <input type="text" id="business-name" placeholder="The name of your business"
+                                class="form-feild"><br />
+                            <textarea id="business-description" placeholder="Describe your business"
+                                class="form-feild form-control"></textarea><br />
+
+                            <input type="text" id="business-logo" placeholder="Valid URL of your logo image"
+                                class="form-feild"><br />
+
+
+                            <h4 class="form-feild">Market</h4>
+                            <div class=form-feild">
+                                <label class="container form-feild">Art
+                                    <input type="checkbox" value="Art">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container form-feild">Fashion
+                                    <input type="checkbox" value="Fashion">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="container form-feild">Food
+                                    <input type="checkbox" value="Food">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container form-feild">Health
+                                    <input type="checkbox" value="Health">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container form-feild">Music
+                                    <input type="checkbox" value="Music">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container form-feild">Sports
+                                    <input type="checkbox" value="Sports">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container form-feild">Textiles
+                                    <input type="checkbox" value="Textiles">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+                            <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="signIn">
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+                        Login
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="business-form">
+                        <form>
+                            <input type="text" placeholder="Email address" id="userEmail" class="form-feild">
+                            <button type="button" class="btn btn-outline-secondary submit form-feild" onclick="">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -228,27 +237,26 @@
     </script>
 
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
-        
-        <!-- Import Firebase Scripts -->
-        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-        <script
-          src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
-        <script src="scripts/firebasescripts-config.js"></script>
-        <script src="scripts/firebasescripts-db.js"></script>
-        <script src="scripts/firebasescripts-auth.js"></script>
-        <script src="scripts/popup-hopper-profile.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <!-- Import Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="scripts/firebasescripts-config.js"></script>
+    <script src="scripts/firebasescripts-db.js"></script>
+    <script src="scripts/firebasescripts-auth.js"></script>
+    <script src="scripts/popup-hopper-profile.js"></script>
 </body>
 
 </html>
