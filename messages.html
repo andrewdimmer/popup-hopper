@@ -13,16 +13,18 @@
     <link rel="stylesheet" href="styles/style.css" />
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <title>Pop-up Hopper</title>
 </head>
 
 <body style="width: 90%; margin-left: 5%;">
-    <div>
-    <h1>Messages</h1>
+        <div include-html="../topbar.html"></div>
+    <div style="overflow: auto;">
+        <h1>Messages</h1>
         <div id=messages>Currently no messages.</div>
     </div>
+    <div include-html="../navbar.html"></div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -38,8 +40,7 @@
     <!-- Import Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-    <script
-      src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
     <script src="scripts/firebasescripts-config.js"></script>
     <script src="scripts/firebasescripts-db.js"></script>
     <script src="scripts/firebasescripts-auth.js"></script>
@@ -47,11 +48,11 @@
     <script>
         if (!debug) {
             if (document.cookie.length == 0) {
-                location.href = location.href.substring(0,location.href.lastIndexOf("/")) + "/signup.html";
+                location.href = location.href.substring(0, location.href.lastIndexOf("/")) + "/signup.html";
             } else if (document.cookie.indexOf("c-") > -1) {
-                displayClientData(document.cookie.substring(document.cookie.indexOf("=")+1));
+                displayClientData(document.cookie.substring(document.cookie.indexOf("=") + 1));
             } else {
-                location.href = location.href.substring(0,location.href.lastIndexOf("/")) + "/index.html";
+                location.href = location.href.substring(0, location.href.lastIndexOf("/")) + "/index.html";
             }
         } else {
             displayClientData("c-WI4E1QBPKZ");
