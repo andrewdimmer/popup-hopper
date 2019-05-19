@@ -142,6 +142,7 @@
                 document.getElementById("Editable").style.display = "";
             } else if (document.cookie.indexOf("c-") > -1 && location.href.indexOf("?id=") > -1) {
                 displayBusinessData(location.href.substring(location.href.indexOf("?id=")+4), true);
+                displayClientData(document.cookie.substring(document.cookie.indexOf("=")+1));
             } else {
                 location.href = location.href.substring(0,location.href.lastIndexOf("/")) + "/index.html";
             }
