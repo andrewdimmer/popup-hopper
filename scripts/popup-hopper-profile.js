@@ -139,7 +139,23 @@ function createBusinessAccount() {
                     });
                 }).then(function() {
                     console.log("Transaction successfully committed!");
-                    window.location.href = "index.html";
+                    var updateMaster = db.collection("businesses").doc("Temp");
+                    db.runTransaction(function(transaction) {
+                        // This code may get re-run multiple times if there are conflicts.
+                        return transaction.get(updateMaster).then(function(masterDoc) {
+                            if (!masterDoc.exists) {
+                                console.log("Document does not exist!");
+                            }
+                            var all = masterDoc.data().All;
+                            all.push({"bID":bID,"BusinessName":parameters.BusinessName});
+                            transaction.update(updateInterests, {Businesses: businesses});
+                        });
+                    }).then(function() {
+                        console.log("Transaction successfully committed!");
+                        window.location.href = "index.html";
+                    }).catch(function(error) {
+                        console.log("Transaction failed: ", error);
+                    });
                 }).catch(function(error) {
                     console.log("Transaction failed: ", error);
                 });
