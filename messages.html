@@ -19,8 +19,8 @@
 </head>
 
 <body style="width: 90%; margin-left: 5%;">
-        <div include-html="../topbar.html"></div>
-    <div style="overflow: auto;">
+    <div include-html="../topbar.html"></div>
+    <div style="overflow: auto; height: calc(100vh-84px);" id="mainContent">
         <h1>Messages</h1>
         <div id=messages>Currently no messages.</div>
     </div>
@@ -45,6 +45,7 @@
     <script src="scripts/firebasescripts-db.js"></script>
     <script src="scripts/firebasescripts-auth.js"></script>
     <script src="scripts/popup-hopper-profile.js"></script>
+    <script src="scripts/loadscripts.js"></script>
     <script>
         if (!debug) {
             if (document.cookie.length == 0) {
