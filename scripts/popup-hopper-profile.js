@@ -1,3 +1,5 @@
+var debug = true;
+
 // Creates a new user account directly after the user signs up.
 function createUserAccount(parameters) {
     if (parameters.type == 0) {
@@ -173,6 +175,12 @@ function unfollow(bID) {
     });
 }
 
+function submitMessage() {
+    sendMessage(document.getElementById("subject").value,document.getElementById("message").value);
+    document.getElementById("subject").value = null;
+    document.getElementById("message").value = null;
+}
+
 function sendMessage(subject, message) {
     var bID = document.cookie.substring(document.cookie.indexOf("=")+1);
     db.collection("businesses").doc(bID).get().then(function(doc) {
@@ -299,6 +307,18 @@ function addLocation() {
                                 console.log(subject);
                                 console.log(message);
                                 sendMessage(subject, message);
+                                
+                                document.getElementById("street").value = null;
+                                document.getElementById("city").value = null;
+                                document.getElementById("state").value = null;
+                                document.getElementById("zipcode").value = null;
+                                document.getElementById("street").value = null;
+                                document.getElementById("startDate").value = null;
+                                document.getElementById("startTime").value = null;
+                                document.getElementById("stopDate").value = null;
+                                document.getElementById("stopTime").value = null;
+                                document.getElementById("description").value = null;
+                                document.getElementById("featured").value = null;
                             }).catch(function(error) {
                                 console.log("Transaction failed: ", error);
                             });
@@ -320,15 +340,104 @@ function addLocation() {
     });
 }
 
-function displayBusinessData(bID) {
+function displayBusinessData(bID, clientView) {
+    var oldLocationNumber, oldPicture, oldName, oldDescription, oldFollows;
     db.collection("businesses").doc(bID)
     .onSnapshot(function(doc) {
         if (!doc.exists) {
-            console.log("ERROR! Docuemnt does not exist!");
+            console.log("ERROR! " + bID + " does not exist!");
         } else {
+            if (oldLocationNumber == undefined || oldLocationNumber != doc.data().Locations.length) {                
+                oldLocationNumber = doc.data().Locations.length;
+                var locationsPromise = getLocations(doc.data().Locations);
+                locationsPromise.then(function(locations) {
+                    locations.sort(compareLocations);
+                    var locationString = "";
+                    for (var i = 0; i < oldLocationNumber; i++) {
+                        var currentLocation = locations[i];
+                        if (currentLocation == null) {
+                            continue;
+                        }
+                        console.log(currentLocation.DateTime.StopInt);
+                        if (currentLocation.DateTime.StopInt > (new Date()).getTime()) {
+                            var featuredURL = "assets/stockImages/iconfinder_t-shirt_115785.png";
+                            if (currentLocation.Featured.indexOf("http") > -1) {
+                                featuredURL = currentLocation.Featured;
+                            }
+                            locationString += "<div class='location'><h5>" + currentLocation.Address.City + ", " + currentLocation.Address.State + "</h5><img src=" + featuredURL + " class=locationImage><p>" + currentLocation.Address.String + "</p><p>" + currentLocation.DateTime.StartString + " - " + currentLocation.DateTime.StopString + "</p><p>" + currentLocation.Description + "</p></div></div>";
+                        }
+                    }
+                    if (locationString.length > 0) {
+                        document.getElementById("locations").innerHTML = locationString;
+                    } else {
+                        document.getElementById("locations").innerHTML = "No current or future locations listed!";
+                    }
+                });
+            }
+            if (oldName == undefined || !(oldName.indexOf(doc.data().BusinessName) == 0 && doc.data().BusinessName.indexOf(oldName) == 0)) {
+                oldName = doc.data().BusinessName;
+                document.getElementById("businessName").innerHTML = doc.data().BusinessName;
+            }
+            if (oldDescription == undefined || !(oldDescription.indexOf(doc.data().Description) == 0 && doc.data().Description.indexOf(oldDescription) == 0)) {
+                oldDescription = doc.data().Description;
+                document.getElementById("description").innerHTML = doc.data().Description;
+            }
+            if (oldPicture == undefined || !(oldPicture.indexOf(doc.data().Logo) == 0 && doc.data().Logo.indexOf(oldPicture) == 0)) {
+                oldPicture = doc.data().Logo;
+                if (doc.data().Logo.indexOf("http") > -1) {
+                    document.getElementById("logo").src = doc.data().Logo;
+                } else {
+                    document.getElementById("logo").src = "assets/stockImages/iconfinder_app_type_real_state_512px_GREY_287479.png"
+                }
+            }
+            if (oldFollows == undefined || oldFollows != doc.data().Followers.length) {
+                oldFollows = doc.data().Followers.length;
+                if (doc.data().Followers.length == 0) {
+                    document.getElementById("follows").innerHTML = "";
+                } else if (doc.data().Followers.length == 1) {
+                    document.getElementById("follows").innerHTML = "1 Follower";
+                } else {
+                    document.getElementById("follows").innerHTML = (doc.data().Followers.length + " Followers");
+                }
+                if (clientView) {
+                    var cID = document.cookie.substring(document.cookie.indexOf("=")+1);
+                    var following = false;
+                    for (var i = 0; i < doc.data().Followers.length; i++) {
+                        if (doc.data().Followers[i].cID.indexOf(cID) > -1) {
+                            document.getElementById("UnfollowButton").setAttribute("onclick", "unfollow('" + bID + "')");
+                            document.getElementById("FollowButton").style.display = "none";
+                            document.getElementById("UnfollowButton").style.display = "";
+                            following = true;
+                            break;
+                        }
+                    }
+                    if (!following) {
+                        document.getElementById("FollowButton").setAttribute("onclick", "follow('" + bID + "')");
+                        document.getElementById("UnfollowButton").style.display = "none";
+                        document.getElementById("FollowButton").style.display = "";
+                    }
+                }
+            }
             console.log("Current data: ", doc.data());
         }
     });
+}
+
+function getLocations(locationArray) {
+    var completed = [];
+    for (var i = 0; i < locationArray.length; i++) {
+        var locationRef = db.collection("locations").doc(locationArray[i]);
+        completed.push(locationRef.get().then(function (doc) {
+            if (doc.exists) {
+                return doc.data();
+            } else {
+                return null;
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        }));
+    }
+    return Promise.all(completed);
 }
 
 function displayClientData(cID) {
@@ -384,4 +493,8 @@ function login() {
         });
     });
     });
+}
+
+function compareLocations(a, b) {
+  return a.DateTime.StartInt - b.DateTime.StartInt;
 }

@@ -17,13 +17,15 @@
 
 <body style="width: 90%; margin-left: 5%;">
     <div>
-        <img src="[insert profile picture here]" style="margin-left: 45%;" width="100" height="100">
+        <img id="logo" style="margin-left: 45%;" width="100" height="100">
         <hr/>
         <div id="information">
-            <p id="bio"></p>
+            <h1><span id="businessName"></span> <span id=FollowButton style="display: none;">Follow</span> <span id=UnfollowButton style="display: none;">Unfollow</span></h1>
+            <h4 id="follows"></h4>
+            <p id="description"></p>
         </div>
+        <h3>Locations</h3>
         <div id="locations">
-            <h3>Locations</h3>
             <div class="location">
                 <h5>[City, State]</h5>
                 <hr/>
@@ -32,7 +34,8 @@
                 <p>[End date]</p>
             </div>
         </div>
-        <div>
+        <div id="Editable" style="display: none;">
+            <h3>Add New Location</h3>
             <form>
                     <input type="text" name="street" placeholder="Street Address" id="street"/><input type="text" name="city" placeholder="City" id="city"/><select name="state" id="state">
                             <option value="state">State</option>
@@ -92,6 +95,7 @@
                         <input type="date" name="stopDate" id="stopDate">
                         <input type="time" name="stopTime" id="stopTime">
             </form>
+            <h3>Send a Message</h3>
         </div>
     </div>
     <!-- Optional JavaScript -->
@@ -107,27 +111,47 @@
     </script>
 
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
-        
-        <!-- Import Firebase Scripts -->
-        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-        <script
-          src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
-        <script src="scripts/firebasescripts-config.js"></script>
-        <script src="scripts/firebasescripts-db.js"></script>
-        <script src="scripts/firebasescripts-auth.js"></script>
-        <script src="scripts/popup-hopper-profile.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <!-- Import Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="scripts/firebasescripts-config.js"></script>
+    <script src="scripts/firebasescripts-db.js"></script>
+    <script src="scripts/firebasescripts-auth.js"></script>
+    <script src="scripts/popup-hopper-profile.js"></script>
+    <script>
+        if (!debug) {
+            if (document.cookie.length == 0) {
+                location.href = location.href.substring(0,location.href.lastIndexOf("/")) + "/signup.html";
+            } else if (document.cookie.indexOf("b-") > -1) {
+                var bID = document.cookie.substring(document.cookie.indexOf("=")+1);
+                displayBusinessData(bID, false);
+                document.getElementById("Editable").style.display = "";
+            } else if (document.cookie.indexOf("c-") > -1 && location.href.indexOf("?id=") > -1) {
+                displayBusinessData(location.href.substring(location.href.indexOf("?id=")+4), true);
+            } else {
+                location.href = location.href.substring(0,location.href.lastIndexOf("/")) + "/index.html";
+            }
+        } else {
+            document.getElementById("Editable").style.display = "";
+            document.getElementById("FollowButton").style.display = "";
+            document.getElementById("UnfollowButton").style.display = "";
+            displayBusinessData("b-HTLJ56ACAL", false)
+        }
+    </script>
 </body>
 
 </html>
