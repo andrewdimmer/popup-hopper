@@ -1,19 +1,21 @@
 // Creates a new user account directly after the user signs up.
 function createUserAccount(parameters) {
-    var one, two, three;
     if (parameters.type == 0) {
         three = true;
         var cID = "c-" + generateID(10);
         var newClient = db.collection("clients").doc(cID);
         console.log(cID + " reserved");
-        one = newClient.get().then(function(doc) {
+        newClient.get().then(function(doc) {
             if (doc.exists) {
                 console.log(cID + " exists");
                 console.log("Duplicate ID. Trying again...");
                 createUserAccount(parameters);
             } else {
                 console.log(cID + " does not exist");
+                document.cookie = "id=" + cID;
                 newClient.set({
+                    "Name": parameters.name,
+                    "Email": parameters.email,
                     "Demographics": {
                         "BirthYear": parameters.year,
                         "Gender": parameters.gender,
@@ -24,34 +26,9 @@ function createUserAccount(parameters) {
                     "Interests": parameters.interests,
                     "Following": [],
                     "cID": cID,
-                    "uID": parameters.uID
+                    "Messages": []
                 }).then(function() {
-                    var newUser = db.collection("users").doc(parameters.uID);
-                    two = newUser.get().then(function(doc) {
-                        if (doc.exists) {
-                            console.log("ERROR! User already exists!")
-                        } else {
-                            console.log("Creating new user!");
-                            newUser.set({
-                                "uID": parameters.uID,
-                                "Name": parameters.name,
-                                "Email": parameters.email,
-                                "Messages": [],
-                                "Profiles": [cID],
-                                "LastCheckedMessages": 0,
-                                "NewestMessage": 0
-                            })
-                            .then(function() {
-                                console.log("Document successfully written!");
-                                window.location.href = "index.html"
-                            })
-                            .catch(function(error) {
-                                console.error("Error writing document: ", error);
-                            });
-                        }
-                    }).catch(function(error) {
-                        console.log("Error getting document:", error);
-                    });
+                    window.location.href = "index.html"
                 }).catch(function(error) {
                     console.error("Error writing document: ", error);
                 });
@@ -63,59 +40,42 @@ function createUserAccount(parameters) {
         var bID = "b-" + generateID(10);
         var newBusiness = db.collection("businesses").doc(bID);
         console.log(bID + " reserved");
-        one = newBusiness.get().then(function(doc) {
+        newBusiness.get().then(function(doc) {
             if (doc.exists) {
                 console.log(bID + " exists");
                 console.log("Duplicate ID. Trying again...");
                 createUserAccount(parameters);
             } else {
                 console.log(bID + " does not exist");
+                document.cookie = "id=" + bID;
                 newBusiness.set({
-                    "Name": parameters.businessName,
+                    "ContactName": parameters.contactName,
+                    "ContactEmail": parameters.email,
+                    "BusinessName": parameters.businessName,
                     "Description": parameters.description,
                     "Logo": parameters.logo,
                     "Locations": [],
                     "Followers": [],
                     "Category": parameters.category,
                     "bID": bID,
-                    "uID": parameters.uID
                 }).then(function() {
-                    var newUser = db.collection("users").doc(parameters.uID);
-                    two = newUser.get().then(function(doc) {
-                        if (doc.exists) {
-                            console.log("ERROR! User already exists!")
-                        } else {
-                            console.log("Creating new user!");
-                            newUser.set({
-                                "uID": parameters.uID,
-                                "Name": parameters.name,
-                                "Email": parameters.email,
-                                "Messages": [],
-                                "Profiles": [bID],
-                                "LastCheckedMessages": 0,
-                                "NewestMessage": 0
-                            })
-                            .then(function() {
-                                console.log("Document successfully written!");
-                                var updateInterests = db.collection("interests").doc(parameters.category);
-                                three = updateInterests.get().then(function(doc) {
-                                    if (doc.exists) {
-                                        var catData = doc.data();
-                                        catData["Businesses"].push(bID);
-                                        updateInterests.set(catData);
-                                    } else {
-                                        console.log("ERROR! Category does not exist!");
-                                    }
-                                }).catch(function(error) {
-                                    console.log("Error getting document:", error);
-                                });
-                            })
-                            .catch(function(error) {
-                                console.error("Error writing document: ", error);
-                            });
-                        }
+                    console.log("Document successfully written!");
+                    var updateInterests = db.collection("interests").doc(parameters.category);
+                    db.runTransaction(function(transaction) {
+                        // This code may get re-run multiple times if there are conflicts.
+                        return transaction.get(updateInterests).then(function(interestDoc) {
+                            if (!interestDoc.exists) {
+                                console.log("Document does not exist!");
+                            }
+                            var businesses = interestDoc.data().Businesses;
+                            businesses.push(bID);
+                            transaction.update(updateInterests, {Businesses: businesses});
+                        });
+                    }).then(function() {
+                        console.log("Transaction successfully committed!");
+                        window.location.href = "index.html";
                     }).catch(function(error) {
-                        console.log("Error getting document:", error);
+                        console.log("Transaction failed: ", error);
                     });
                 }).catch(function(error) {
                     console.error("Error writing document: ", error);
@@ -127,53 +87,78 @@ function createUserAccount(parameters) {
     } else {
         console.log("Invalid Type Error!");
     }
-    return Promise.all([one,two, three]);
 }
 
-function follow(bID, uID, cID) {
+function follow(bID) {
+    var cID = document.cookie.substring(document.cookie.indexOf("=")+1);
     var followingUser = db.collection("clients").doc(cID);
-    followingUser.get().then(function(doc) {
-        if (doc.exists) {
-            var userData = doc.data();
-            userData.Following.push({
-                "Level": 1,
-                "bID": bID
+    db.runTransaction(function(transaction) {
+        // This code may get re-run multiple times if there are conflicts.
+        return transaction.get(followingUser).then(function(userDoc) {
+            if (!userDoc.exists) {
+                console.log("Document does not exist!");
+            }
+            var following = userDoc.data().Following;
+            following.push({"Level": 1, "bID": bID});
+            transaction.update(followingUser, {Following: following});
+        });
+    }).then(function() {
+        console.log("Transaction successfully committed!");
+        var followedBusiness = db.collection("businesses").doc(bID);
+        db.runTransaction(function(transaction) {
+            // This code may get re-run multiple times if there are conflicts.
+            return transaction.get(followedBusiness).then(function(businessDoc) {
+                if (!businessDoc.exists) {
+                    console.log("Document does not exist!");
+                }
+                var followers = businessDoc.data().Followers;
+                followers.push({"Level": 1, "cID": cID});
+                transaction.update(followedBusiness, {Followers: followers});
             });
-            followingUser.set(userData).then(function() {
-                db.ref("users/" + uID).transaction(function(data) {
-                    data.Followers.push({
-                        "Level": 1,
-                        "cID": cID,
-                        "uID": uID
-                    });
-                    alert("Followed");
-                });
-            }).catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
-        } else {
-            console.log("Error! User does not exist!");
-        }
+        }).then(function() {
+            console.log("Transaction successfully committed!");
+            alert("Success!");
+        }).catch(function(error) {
+            console.log("Transaction failed: ", error);
+        });
     }).catch(function(error) {
-        console.log("Error getting document:", error);
+        console.log("Transaction failed: ", error);
     });
 }
 
-function addMessage(subject, message, bID) {
+function sendMessage(subject, message) {
+    var bID = document.cookie.substring(document.cookie.indexOf("=")+1);
     db.collection("businesses").doc(bID).get().then(function(doc) {
         if (doc.exists) {
             var businessData = doc.data();
+            sent = 0;
             for (var i = 0; i < businessData.Followers.length; i++){
-                db.collection("users").doc(businessData.Followers[i].uID).transaction(function(data) {
-                    data.Messages.unshift({
-                        "Sender": businessData.Name,
-                        "Time": (new Date()).toDateString(),
-                        "Subject": subject,
-                        "Message": message
+                var userToMessage = db.collection("clients").doc(businessData.Followers[i].cID);
+                db.runTransaction(function(transaction) {
+                    // This code may get re-run multiple times if there are conflicts.
+                    return transaction.get(userToMessage).then(function(userDoc) {
+                        if (!userDoc.exists) {
+                            console.log("Document does not exist!");
+                        }
+                        var messages = userDoc.data().Messages;
+                        messages.unshift({
+                            "Subject": subject,
+                            "Message": message,
+                            "Sender": businessData.BusinessName,
+                            "Date": (new Date()).toDateString()
+                        });
+                        transaction.update(userToMessage, {Messages: messages});
                     });
+                }).then(function() {
+                    console.log("Transaction successfully committed!");
+                    sent++;
+                    if (sent == businessData.Followers.length) {
+                        alert("All Messages Sent!");
+                    }
+                }).catch(function(error) {
+                    console.log("Transaction failed: ", error);
                 });
             }
-            alert("Message Sent!");
         } else {
             console.log("Error! User does not exist!");
         }
