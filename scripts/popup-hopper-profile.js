@@ -3,7 +3,7 @@ function createUserAccount(parameters) {
     var one, two, three;
     if (parameters.type == 0) {
         three = true;
-        cID = "c-" + generateID(10);
+        var cID = "c-" + generateID(10);
         var newClient = db.collection("clients").doc(cID);
         console.log(cID + " reserved");
         one = newClient.get().then(function(doc) {
@@ -24,9 +24,9 @@ function createUserAccount(parameters) {
                     "Interests": parameters.interests,
                     "Following": [],
                     "cID": cID,
-                    "uID": uID
+                    "uID": parameters.uID
                 }).then(function() {
-                    var newUser = db.collection("users").doc(uID);
+                    var newUser = db.collection("users").doc(parameters.uID);
                     two = newUser.get().then(function(doc) {
                         if (doc.exists) {
                             console.log("ERROR! User already exists!")
@@ -60,7 +60,7 @@ function createUserAccount(parameters) {
             console.log("Error getting document:", error);
         });
     } else if (parameters.type == 1) {
-        cID = "b-" + generateID(10);
+        var bID = "b-" + generateID(10);
         var newBusiness = db.collection("businesses").doc(bID);
         console.log(bID + " reserved");
         one = newBusiness.get().then(function(doc) {
@@ -78,9 +78,9 @@ function createUserAccount(parameters) {
                     "Followers": [],
                     "Category": parameters.category,
                     "bID": bID,
-                    "uID": uID
+                    "uID": parameters.uID
                 }).then(function() {
-                    var newUser = db.collection("users").doc(uID);
+                    var newUser = db.collection("users").doc(parameters.uID);
                     two = newUser.get().then(function(doc) {
                         if (doc.exists) {
                             console.log("ERROR! User already exists!")
@@ -101,7 +101,7 @@ function createUserAccount(parameters) {
                                 three = updateInterests.get().then(function(doc) {
                                     if (doc.exists) {
                                         var catData = doc.data();
-                                        catData[Businesses].push(bID);
+                                        catData["Businesses"].push(bID);
                                         updateInterests.set(catData);
                                     } else {
                                         console.log("ERROR! Category does not exist!");
@@ -131,7 +131,8 @@ function createUserAccount(parameters) {
 }
 
 function follow(bID, uID, cID) {
-    db.collection("clients").doc(cID).get().then(function(doc) {
+    var followingUser = db.collection("clients").doc(cID);
+    followingUser.get().then(function(doc) {
         if (doc.exists) {
             var userData = doc.data();
             userData.Following.push({
@@ -139,7 +140,7 @@ function follow(bID, uID, cID) {
                 "bID": bID
             });
             followingUser.set(userData).then(function() {
-                db.collection("businesses").doc(bID).transaction(function(data) {
+                db.ref("users/" + uID).transaction(function(data) {
                     data.Followers.push({
                         "Level": 1,
                         "cID": cID,
