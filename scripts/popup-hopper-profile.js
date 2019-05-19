@@ -147,8 +147,8 @@ function createBusinessAccount() {
                                 console.log("Document does not exist!");
                             }
                             var all = masterDoc.data().All;
-                            all.push({"bID":bID,"BusinessName":parameters.BusinessName});
-                            transaction.update(updateInterests, {Businesses: businesses});
+                            all.push({"bID":bID,"BusinessName":parameters.businessName});
+                            transaction.update(updateMaster, {All: all});
                         });
                     }).then(function() {
                         console.log("Transaction successfully committed!");

@@ -20,10 +20,9 @@
 
 <body style="width: 90%; margin-left: 5%;">
     <div include-html="../topbar.html"></div>
-    <div id="mainContent" style="overflow: auto; height:calc(100vh - 115px)>
+    <div id="mainContent" style="overflow: auto; height:calc(100vh - 115px)">
     <h1>Businesses</h1>
-        <div id="businessList"></div>
-        
+        <div id="businessList" ></div>
     </div>
     <div include-html="../navbar.html"></div>
 
@@ -48,6 +47,7 @@
     <script src="scripts/firebasescripts-db.js"></script>
     <script src="scripts/firebasescripts-auth.js"></script>
     <script src="scripts/popup-hopper-profile.js"></script>
+    <script src="scripts/loadscripts.js"></script>
     <script>
         if (!debug) {
             if (document.cookie.length == 0) {
