@@ -3,25 +3,25 @@ var debug = false;
 // Creates a new user account directly after the user signs up.
 function createClientAccount() {
     var interests = [];
-    if (document.getElementById("ArtC").value) {
+    if (document.getElementById("ArtC").checked) {
         interests.push("Art");
     }
-    if (document.getElementById("FashionC").value) {
+    if (document.getElementById("FashionC").checked) {
         interests.push("Fashion");
     }
-    if (document.getElementById("FoodC").value) {
+    if (document.getElementById("FoodC").checked) {
         interests.push("Food");
     }
-    if (document.getElementById("HealthC").value) {
+    if (document.getElementById("HealthC").checked) {
         interests.push("Heath");
     }
-    if (document.getElementById("MusicC").value) {
+    if (document.getElementById("MusicC").checked) {
         interests.push("Music");
     }
-    if (document.getElementById("SportsC").value) {
+    if (document.getElementById("SportsC").checked) {
         interests.push("Sports");
     }
-    if (document.getElementById("TextilesC").value) {
+    if (document.getElementById("TextilesC").checked) {
         interests.push("Textiles");
     }
     var parameters = {
@@ -73,25 +73,25 @@ function createClientAccount() {
 
 function createBusinessAccount() {
     var interests = [];
-    if (document.getElementById("ArtB").value) {
+    if (document.getElementById("ArtB").checked) {
         interests.push("Art");
     }
-    if (document.getElementById("FashionB").value) {
+    if (document.getElementById("FashionB").checked) {
         interests.push("Fashion");
     }
-    if (document.getElementById("FoodB").value) {
+    if (document.getElementById("FoodB").checked) {
         interests.push("Food");
     }
-    if (document.getElementById("HealthB").value) {
+    if (document.getElementById("HealthB").checked) {
         interests.push("Heath");
     }
-    if (document.getElementById("MusicB").value) {
+    if (document.getElementById("MusicB").checked) {
         interests.push("Music");
     }
-    if (document.getElementById("SportsB").value) {
+    if (document.getElementById("SportsB").checked) {
         interests.push("Sports");
     }
-    if (document.getElementById("TextilesB").value) {
+    if (document.getElementById("TextilesB").checked) {
         interests.push("Textiles");
     }
     var parameters = {
@@ -419,7 +419,7 @@ function addLocation() {
 }
 
 function displayBusinessData(bID, clientView) {
-    var oldLocationNumber, oldPicture, oldName, oldDescription, oldFollows;
+    var oldLocationNumber, oldPicture, oldName, oldDescription, oldFollows, oldCategory;
     db.collection("businesses").doc(bID)
     .onSnapshot(function(doc) {
         if (!doc.exists) {
@@ -456,6 +456,10 @@ function displayBusinessData(bID, clientView) {
                 if (oldName == undefined || !(oldName.indexOf(doc.data().BusinessName) == 0 && doc.data().BusinessName.indexOf(oldName) == 0)) {
                     oldName = doc.data().BusinessName;
                     document.getElementById("businessName").innerHTML = doc.data().BusinessName;
+                }
+                if (oldCategory == undefined || !(oldCategory.indexOf(doc.data().Category) == 0 && doc.data().Category.indexOf(oldCategory) == 0)) {
+                    oldName = doc.data().Category;
+                    document.getElementById("category").innerHTML = "Category: " + doc.data().Category;
                 }
                 if (oldDescription == undefined || !(oldDescription.indexOf(doc.data().Description) == 0 && doc.data().Description.indexOf(oldDescription) == 0)) {
                     oldDescription = doc.data().Description;
